@@ -18,19 +18,25 @@ void storage_init()
     storage_size = ftell(file);
 }
 
-void storage_read(addr_t addr, uint8_t *buf, int size)
+int storage_read(addr_t addr, uint8_t *buf, int size)
 {
     // check if the address is out of bound
-    if (addr + size > storage_size)
+    if (addr> storage_size)
     {
-        fprintf(stderr, "Error: Address out of bound\n");
+        fprintf(stderr, "Storage Error: Address out of bound\n");
         fprintf(stderr, "Address: %d, Size: %d, Storage size: %d\n", addr, size, storage_size);
         exit(1);
     }
 
+    // try to read maximum size
+    if (addr + size > storage_size)
+        size = storage_size - addr;
+
     // read from file
     fseek(file, addr, SEEK_SET);
     fread(buf, 1, size, file);
+
+    return size;
 }
 
 #ifdef DEBUG
