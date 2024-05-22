@@ -18,6 +18,7 @@ uint8_t *memory_get(addr_t paddr)
     return &memory[paddr];
 }
 
+#ifdef DEBUG
 void memory_print_page(addr_t ppn)
 {
     addr_t paddr = addr_paddr(ppn, 0);
@@ -35,3 +36,4 @@ void memory_print_page(addr_t ppn)
     }
     printf("\n");
 }
+#endif

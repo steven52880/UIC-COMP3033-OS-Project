@@ -38,9 +38,11 @@ tlb_entry_t *tlb_replace_fifo(addr_t vpn, addr_t ppn)
     return entry;
 }
 
+#ifdef DEBUG
 void tlb_print()
 {
     printf("TLB:\n");
     for (int i = 0; i < ENTRIES; i++)
         printf("  %d: (VPN) %d -> (PPN) %d (%c)\n", i, tlb[i].vpn, tlb[i].ppn, tlb[i].valid ? 'V' : ' ');
 }
+#endif

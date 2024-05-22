@@ -16,4 +16,6 @@ void pagetable_init();
 
 pte_t *pagetable_get(addr_t vpn);
 
+#ifdef DEBUG
 void pagetable_print();
+#endif

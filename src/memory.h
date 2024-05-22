@@ -8,4 +8,7 @@ void memory_init();
 
 addr_t paddr(addr_t ppn, addr_t offset);
 uint8_t *memory_get(addr_t paddr);
+
+#ifdef DEBUG
 void memory_print_page(addr_t ppn);
+#endif

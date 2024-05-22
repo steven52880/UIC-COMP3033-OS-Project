@@ -19,4 +19,6 @@ tlb_entry_t *tlb_get(addr_t vpn);
 
 tlb_entry_t *tlb_replace_fifo(addr_t vpn, addr_t ppn);
 
+#ifdef DEBUG
 void tlb_print();
+#endif

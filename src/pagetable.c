@@ -24,9 +24,11 @@ pte_t *pagetable_get(addr_t vpn)
     return &pagetable[vpn];
 }
 
+#ifdef DEBUG
 void pagetable_print()
 {
     printf("Page Table:\n");
     for (int i = 0; i < (1 << (vaddrBits - offsetBits)); i++)
         printf("    vpn: %d -> ppn: %d (%c)\n", i, pagetable[i].ppn, pagetable[i].valid ? 'V' : ' ');
 }
+#endif
