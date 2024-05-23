@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+int storage_size;
+
 FILE *file;
 void storage_init()
 {

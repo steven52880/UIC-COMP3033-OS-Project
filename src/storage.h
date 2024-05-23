@@ -4,7 +4,7 @@
 
 #define PATH "backingstore.bin"
 
-int storage_size;
+extern int storage_size;
 
 void storage_init();
 
