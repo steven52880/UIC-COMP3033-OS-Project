@@ -65,6 +65,7 @@ int main()
     addr_t addr;
     while (fscanf(addrlist_fp, "%d", &addr) != EOF)
     {
+        count_visit();
         mmu_get_byte(addr);
     }
     fclose(addrlist_fp);

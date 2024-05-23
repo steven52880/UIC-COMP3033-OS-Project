@@ -28,7 +28,6 @@ uint8_t mmu_get_byte(addr_t vaddr)
 #ifdef VERBOSE
     printf("**MMU read address %d\n", vaddr);
 #endif
-    count_visit();
 
     addr_t vpn = addr_index(vaddr);
     addr_t offset = addr_offset(vaddr);
