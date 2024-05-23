@@ -22,6 +22,9 @@ void storage_init()
 
 int storage_read(addr_t addr, uint8_t *buf, int size)
 {
+#ifdef VERBOSE
+    printf("**Storage Read: addr=%d, size=%d\n", addr, size);
+#endif
     // check if the address is out of bound
     if (addr> storage_size)
     {
@@ -42,20 +45,23 @@ int storage_read(addr_t addr, uint8_t *buf, int size)
 }
 
 #ifdef DEBUG
-void storage_print()
+void storage_print(addr_t addr)
 {
-    // print the first 256 bytes
     const int size = 256;
     uint8_t buf[size];
-    fseek(file, 0, SEEK_SET);
-    fread(buf, 1, size, file);
+    storage_read(addr, buf, size);
     for (int i = 0; i < size; i++)
     {
         printf("%02x ", buf[i]);
+        if ((i + 1) % 8 == 0)
+        {
+            printf("  ");
+        }
         if ((i + 1) % 16 == 0)
         {
             printf("\n");
         }
-    }    
+    }
+    printf("\n");
 }
 #endif

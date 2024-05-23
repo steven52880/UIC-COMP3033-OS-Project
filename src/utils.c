@@ -20,7 +20,7 @@ addr_t addr_offset(addr_t addr)
     return addr & bits_n1(offsetBits);
 }
 
-addr_t addr_paddr(addr_t ppn, addr_t offset)
+addr_t addr_addr(addr_t ppn, addr_t offset)
 {
     return (ppn << offsetBits) + offset;
 }

@@ -25,6 +25,9 @@ uint8_t mmu_get_byte(addr_t vaddr)
         return 0;
     }
 
+#ifdef VERBOSE
+    printf("**MMU read address %d\n", vaddr);
+#endif
     count_visit();
 
     addr_t vpn = addr_index(vaddr);
@@ -35,9 +38,9 @@ uint8_t mmu_get_byte(addr_t vaddr)
     if (tlb_entry != nullptr)
     {
         // TLB hit
-        addr_t paddr = addr_paddr(tlb_entry->ppn, offset);
+        addr_t paddr = addr_addr(tlb_entry->ppn, offset);
         uint8_t data = *memory_get(paddr);
-        printf("[TLB] (LA) %d -> (PA) %d: %c\n", vaddr, paddr, data);
+        printf("[TLB] (LA) %d -> (PA) %d: %d\n", vaddr, paddr, data);
         count_tlb_hit();
         return data;
     }
@@ -50,9 +53,9 @@ uint8_t mmu_get_byte(addr_t vaddr)
 
         // update TLB
         tlb_replace_fifo(vpn, pte->ppn);
-        addr_t paddr = addr_paddr(pte->ppn, offset);
+        addr_t paddr = addr_addr(pte->ppn, offset);
         uint8_t data = *memory_get(paddr);
-        printf("[Page Table] (LA) %d -> (PA) %d: %c\n", vaddr, paddr, data);
+        printf("[Page Table] (LA) %d -> (PA) %d: %d\n", vaddr, paddr, data);
         return data;
     }
     

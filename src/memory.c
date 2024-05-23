@@ -15,13 +15,16 @@ void memory_init()
 
 uint8_t *memory_get(addr_t paddr)
 {
+#ifdef VERBOSE
+    printf("**Memory get: %d\n", paddr);
+#endif
     return &memory[paddr];
 }
 
 #ifdef DEBUG
 void memory_print_page(addr_t ppn)
 {
-    addr_t paddr = addr_paddr(ppn, 0);
+    addr_t paddr = addr_addr(ppn, 0);
     for (int i = 0; i < (1 << offsetBits); i++)
     {
         printf("%02x ", memory[paddr + i]);

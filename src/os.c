@@ -26,6 +26,9 @@ void os_init()
 
 void os_page_missing_handler(addr_t vaddr)
 {
+#ifdef VERBOSE
+    printf("**Page missing handler: %d\n", vaddr);
+#endif
     addr_t old_vpn = nullptr;
     addr_t ppn = mem_head;
     addr_t vpn = addr_index(vaddr);
@@ -42,7 +45,7 @@ void os_page_missing_handler(addr_t vaddr)
     }
 
     // load the page from storage
-    storage_read(vaddr, memory_get(addr_paddr(ppn, 0)), 1 << offsetBits);
+    storage_read(addr_addr(vpn, 0), memory_get(addr_addr(ppn, 0)), 1 << offsetBits);
     ppn_2_vpn[ppn] = vpn;
 
     // update pagetable for the new page
@@ -81,6 +84,6 @@ void os_page_missing_handler(addr_t vaddr)
     pagetable_print();
     tlb_print();
     memory_print_page(ppn);
-    delay(1000);
+    delay(100);
 #endif
 }
